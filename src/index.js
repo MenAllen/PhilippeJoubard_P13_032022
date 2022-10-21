@@ -9,6 +9,8 @@ import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Logout from "./pages/Logout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +21,8 @@ root.render(
 				<Routes>
 					<Route exact path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/signout" element={<Logout />} />
 					<Route path="*" element={<Error />} />
 				</Routes>
 				<Footer />

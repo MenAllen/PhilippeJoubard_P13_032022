@@ -5,7 +5,7 @@ const ErrorWrapper = styled.div`
 	margin: 30px;
 	display: flex;
 	flex-direction: column;
-	background-color: #1b1b1b;
+	background-color: #fbfbfb;
 	align-items: center;
 `;
 
