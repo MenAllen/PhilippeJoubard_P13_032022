@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { userLogout } from "../features/user/userSlice";
+import { useDispatch } from "react-redux";
 import iconChat from "../assets/icon-chat.png"
 import iconMoney from "../assets/icon-money.png"
 import iconSecurity from "../assets/icon-security.png"
 import "../style/main.css"
 
 function Home() {
+	const dispatch = useDispatch();
+	
+	useEffect(() => {
+		console.log("useEffect Home Signout:");
+		dispatch(userLogout());
+	}, []);
+
 	return (
 		<main>
 			<div className="hero">

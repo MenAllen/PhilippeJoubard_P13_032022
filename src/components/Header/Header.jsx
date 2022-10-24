@@ -7,18 +7,19 @@ import "../../style/main.css";
 function Header() {
 
 	// retrieve store data to know about user connexion
-	const { success, userInfo } = useSelector((state) => state.user);
-	console.log("Header: ", success, userInfo);
+	const { userInfo } = useSelector((state) => state.user);
+	const connected = sessionStorage.getItem('connected')
+	console.log("Header: ", userInfo);
 
 	// Header actions depend on user connection
 	function headerActions() {
-		if (success)
+		if (connected)
 			return (
 				<div>
 					<NavLink to="/profile" className="main-nav-item">
 						<i className="fa fa-user-circle"/>{ ` ${userInfo.firstName}` }
 					</NavLink>
-					<NavLink to="/signout" className="main-nav-item">
+					<NavLink to="/" className="main-nav-item">
 						<i className="fa fa-sign-out"/> Sign Out
 					</NavLink>
 				</div>

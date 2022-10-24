@@ -3,36 +3,33 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/user/userActions";
 import { useNavigate } from "react-router-dom";
-import ErrorModal from "../components/Error/ErrorModal";
+import { userClear } from "../features/user/userSlice";
+import Modal from "../components/Modal/Modal";
 import { LoaderWrapper, Loader } from "../utils/Atoms";
 import "../style/main.css";
 
 function Login() {
 	const { loading, success, error } = useSelector((state) => state.user);
-	console.log("useSelector: ", loading, success, error);
+	console.log("login useSelector: ", loading, success, error);
 	const dispatch = useDispatch();
-	const { register, reset, handleSubmit } = useForm();
+	const { register, handleSubmit } = useForm();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		// redirect authenticated user to profile screen
 		console.log("Login useEffect :", loading, success);
-		if (success) navigate("/profile");
-	}, [navigate, success]);
+		if (success) {
+      console.log("Login useEffect Navigate");
+      dispatch(userClear())
+      navigate("/profile");}
+	}, [success]);
 
 	const submitForm = (data) => {
-		console.log("submitForm: ", data);
+    if (data.checkbox) {
+					document.cookie=`email=${data.email};  SameSite=Strict`;
+				}
+		console.log("submitForm: ", data); 
 		dispatch(userLogin(data));
-	};
-
-  // Display Error received from API can be string or object
-	const errorDisplay = () => {
-		if (typeof error === "string") {
-			return <ErrorModal message={error} />;
-		}
-		if (error) {
-			return <ErrorModal status={error.status} message={error.message} />;
-		}
 	};
 
 	return (
@@ -42,7 +39,7 @@ function Login() {
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit(submitForm)}>
           {loading && <LoaderWrapper><Loader /></LoaderWrapper>}
-					{errorDisplay()}
+          {error && <Modal />}
 					<div className="input-wrapper">
 						<label htmlFor="email">Username</label>
 						<input type="email" {...register("email")} required />
@@ -52,8 +49,8 @@ function Login() {
 						<input type="password" {...register("password")} required />
 					</div>
 					<div className="input-remember">
-						<input type="checkbox" id="remember-me" />
-						<label htmlFor="remember-me">Remember me</label>
+						<input type="checkbox" {...register("checkbox")} />
+						<label htmlFor="checkbox">Remember me</label>
 					</div>
 					<button type="submit" className="sign-in-button" disabled={loading}>
 						Sign In

@@ -1,25 +1,26 @@
 import React from "react"
+import { Link } from "react-router-dom";
 import styled from "styled-components"
 
-const ErrorWrapper = styled.div`
-	margin: 30px;
-	display: flex;
-	flex-direction: column;
-	background-color: #fbfbfb;
-	align-items: center;
-`;
-
-const ErrorTitle = styled.h1`
-	color: #000000;
-	font-weight: 300;
-`;
-
 function Error() {
+	const ErrorPageContainer = styled.div`
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		font-size: 3rem;
+		font-weight: 500;
+	`;
 
 	return (
-		<ErrorWrapper>
-			<ErrorTitle>Oups...Il semblerait que la page que vous cherchez n’existe pas</ErrorTitle>
-		</ErrorWrapper>
+		<ErrorPageContainer>
+			<h2>Error !</h2>
+			<p>
+				Requested page doesn't exist
+			</p>
+			<Link to="/" style={{ color: "#ff6060", fontSize: "2rem" }}>
+				<h3>Back to Home page</h3>
+			</Link>
+		</ErrorPageContainer>
 	);
 }
 

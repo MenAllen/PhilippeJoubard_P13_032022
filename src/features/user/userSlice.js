@@ -18,12 +18,17 @@ const userSlice = createSlice({
 	reducers: {
 		userLogout: (state) => {
 			sessionStorage.removeItem("userToken"); // deletes token from storage
+			sessionStorage.removeItem("connected"); // deletes boolean from storage
 			state.loading = false;
 			state.userInfo = null;
 			state.userToken = null;
 			state.error = null;
 			state.success = false;
-      state.action = 'none'
+		},
+		userClear: (state) => {
+			state.loading = false;
+			state.error = null;
+			state.success = false;
 		},
 	},
 	extraReducers: {
@@ -32,7 +37,7 @@ const userSlice = createSlice({
 			console.log("login pending");
 			state.loading = true;
 			state.error = null;
-      state.action = "login"
+      state.success = false;
 		},
 		[userLogin.fulfilled]: (state, { payload }) => {
 			console.log("login fulfilled ", payload);
@@ -40,6 +45,7 @@ const userSlice = createSlice({
 			if (payload.status === 200) {				
 				state.userInfo = payload;
 				state.userToken = payload.body.token;
+        state.connected = true;
 				state.success = true;
 			} else {
         state.success = false;
@@ -58,7 +64,7 @@ const userSlice = createSlice({
 			console.log("profile pending");
 			state.loading = true;
 			state.error = null;
-      state.action = "profile"
+      state.success = false;
 		},
 		[userProfile.fulfilled]: (state, { payload }) => {
 			console.log("profile fulfilled ", payload);
@@ -66,7 +72,10 @@ const userSlice = createSlice({
 			if (payload.status === 200) {
 				state.userInfo = payload.body;
 				state.success = true;
-			}
+			} else {
+        state.success = false;
+        state.error = payload
+      }
 		},
 		[userProfile.rejected]: (state, { payload }) => {
 			console.log("profile rejected", payload);
@@ -79,7 +88,7 @@ const userSlice = createSlice({
 			console.log("name pending");
 			state.loading = true;
 			state.error = null;
-      state.action = "name"
+      state.success = false;
 		},
 		[userName.fulfilled]: (state, { payload }) => {
 			console.log("name fulfilled ", payload);
@@ -94,10 +103,8 @@ const userSlice = createSlice({
 			state.loading = false;
 			state.error = payload;
 		},
-
-
   },
 });
 
-export const { userLogout } = userSlice.actions;
+export const { userLogout, userClear } = userSlice.actions;
 export default userSlice.reducer;

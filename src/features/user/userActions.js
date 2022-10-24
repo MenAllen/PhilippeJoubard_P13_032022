@@ -4,7 +4,8 @@ const server = "http://localhost:3001";
 
 export const userLogin = createAsyncThunk(
 	"user/userLogin",
-	async ({ email, password }, { rejectWithValue }) => {
+	async ({ email, password, checkbox }, { rejectWithValue }) => {
+    console.log("userLogin");
 		return fetch(`${server}/api/v1/user/login`, {
 			method: "POST",
 			body: JSON.stringify({ email, password }),
@@ -18,6 +19,7 @@ export const userLogin = createAsyncThunk(
 				console.log(mainData);
 				if (mainData.status === 200) {
 					sessionStorage.setItem("userToken", mainData.body.token);
+          sessionStorage.setItem("connected", true);
 				}
 				return mainData;
 			})
@@ -39,7 +41,7 @@ export const userProfile = createAsyncThunk("user/userProfile", async ({ rejectW
 	})
 		.then((data) => data.json())
 		.then((mainData) => {
-			console.log(mainData);
+			console.log("userProfile mainData: ", mainData);
 			return mainData;
 		})
 		.catch((err) => {

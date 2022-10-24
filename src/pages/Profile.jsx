@@ -1,62 +1,51 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { userProfile, userName } from "../features/user/userActions";
-import { LoaderWrapper, Loader } from "../utils/Atoms";
-import ErrorModal from "../components/Error/ErrorModal";
-import "../style/main.css";
+import React, { useRef, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useForm } from "react-hook-form"
+import { userName, userProfile } from "../features/user/userActions"
+import { userClear } from "../features/user/userSlice"
+import { LoaderWrapper, Loader } from "../utils/Atoms"
+import Modal from "../components/Modal/Modal"
+import "../style/main.css"
 
 function Profile() {
-	const dispatch = useDispatch();
-	const { loading, action, success, userInfo, error } = useSelector((state) => state.user);
-	const [sendRequest, setSendRequest] = useState(false);
-	const { register, reset, handleSubmit } = useForm();
+	const dispatch = useDispatch()
+	const { register, reset, handleSubmit } = useForm()
+	const { action, loading, success, userInfo, error } = useSelector((state) => state.user)
+	console.log("profile useSelector: ", loading, success, userInfo, error)
 
-	const editRef = useRef();
-	const formRef = useRef();
-	const dataProfile = {};
+	const editRef = useRef()
+	const formRef = useRef()
+	const dataProfile = {}
 
-	// Launch profile request to server
+	// Launch Action: Profile request to server on first render and hide name
 	useEffect(() => {
-		console.log("Profile useEffect ", sendRequest, loading);
-		if (!loading && !sendRequest){
-			dispatch(userProfile(dataProfile));
-      setSendRequest(true);
-		}
-	}, []);
+		console.log("Profile useEffect ", loading, success)
+  	dispatch(userProfile(dataProfile))
+	}, [])
 
-	// Display or Hide Edit Name buttons
-	function toggleEditName() {
-
-    // Reset input values first
-    reset({firstName: "", lastName: ""})
-
-		if (editRef.current.classList.contains("nodisplay")) {
-			editRef.current.classList.remove("nodisplay");
-			formRef.current.classList.add("nodisplay");
-			return;
-		}
-		editRef.current.classList.add("nodisplay");
-		formRef.current.classList.remove("nodisplay");
+	// Launch Action : Clear user state then Dispatch Name update request
+	const submitForm = (dataName) => {
+		console.log("submitForm: ", dataName, loading, success)
+		dispatch(userClear())
+		dispatch(userName(dataName))
 	}
 
-	// Dispatch Name update request
-	const submitForm = (dataName) => {
-		console.log("submitForm: ", dataName);
-		dispatch(userName(dataName));
-    reset({firstName: "", lastName: ""})
-    toggleEditName()
-	};
+	// Display or Hide Edit Name buttons
+	function toggleEditName(action) {
+		console.log("toggleEditName: ", loading)
+		if (!loading) {
+			// Reset input values first
+			reset({ firstName: "", lastName: "" })
 
-  // Display Error received from API can be string or object
-	const errorDisplay = () => {
-		if (typeof error === "string") {
-			return <ErrorModal message={error} />;
+			if (editRef.current.classList.contains("nodisplay")) {
+        editRef.current.classList.remove("nodisplay")
+				formRef.current.classList.add("nodisplay")
+				return
+			}
+			editRef.current.classList.add("nodisplay")
+			formRef.current.classList.remove("nodisplay")
 		}
-		if (error) {
-			return <ErrorModal status={error.status} message={error.message} />;
-		}
-	};
+	}
 
 	return (
 		<main className="main bg-dark">
@@ -71,19 +60,23 @@ function Profile() {
 				</button>
 				<div className="update-name-container nodisplay" ref={formRef}>
 					<form onSubmit={handleSubmit(submitForm)}>
-          {loading && <LoaderWrapper><Loader /></LoaderWrapper>}
-          {errorDisplay()}
+						{loading && (
+							<LoaderWrapper>
+								<Loader />
+							</LoaderWrapper>
+						)}
+						{error && <Modal />}
 						<input
 							className="input-name"
 							placeholder={userInfo.firstName}
 							{...register("firstName")}
-              required
+							required
 						/>
 						<input
 							className="input-name"
 							placeholder={userInfo.lastName}
 							{...register("lastName")}
-              required
+							required
 						/>
 						<button type="submit" className="save-button">
 							Save
@@ -126,7 +119,7 @@ function Profile() {
 				</div>
 			</section>
 		</main>
-	);
+	)
 }
 
-export default Profile;
+export default Profile

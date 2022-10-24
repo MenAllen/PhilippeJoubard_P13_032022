@@ -50,6 +50,10 @@ body {
   padding: 5px 20px;
 }
 
+.main-nav div {
+  display: flex;
+}
+
 .main-nav a {
   font-size: 16px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -173,6 +177,7 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  cursor: pointer;
 }
 
 .sign-in-content {
@@ -268,8 +273,8 @@ body {
   color: #fff;
   font-weight: bold;
   padding: 10px;
-  margin-right: 5px;
-  width: 87px;
+  margin: 5px;
+/*  width: 87px; */
   cursor: pointer;
 }
 
@@ -279,7 +284,7 @@ body {
   color: #0b0b0b;
   font-weight: bold;
   padding: 10px;
-  margin-right: 5px;
+  margin: 5px;
   width: 140px;
 }
 
@@ -321,4 +326,22 @@ body {
   .transaction-button {
     width: 200px;
   }
+}
+
+@media (max-width: 720px) {
+  .update-name-container {
+  flex-direction: column;
+  }
+
+  .cancel-button {
+    align-self: center;
+  }
+
+  .save-button {
+    align-self: center;
+  }
+
+  .input-name {
+    width: 20%;
+  } 
 }

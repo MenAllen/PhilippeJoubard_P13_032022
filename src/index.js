@@ -10,11 +10,10 @@ import Error from "./components/Error/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import Logout from "./pages/Logout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
+//	<React.StrictMode>
 		<Provider store={store}>
 			<Router>
 				<Header />
@@ -22,13 +21,12 @@ root.render(
 					<Route exact path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/profile" element={<Profile />} />
-					<Route path="/signout" element={<Logout />} />
 					<Route path="*" element={<Error />} />
 				</Routes>
 				<Footer />
 			</Router>
 		</Provider>
-	</React.StrictMode>
+//	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

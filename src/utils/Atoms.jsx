@@ -10,17 +10,22 @@ const rotate = keyframes`
 `;
 
 export const LoaderWrapper = styled.div`
+color: red;
+background-color: white;
+
 	display: flex;
 	justify-content: center;
-	padding-bottom: 20px;
-	padding-top: 20px;
-	position: absolute;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	position: fixed;
 	top: 0;
-	right: 10%;
+	right: 50%;
 	z-index: 10;
 `;
 
 export const Loader = styled.div`
+	color: red;
+	background-color: white;
 	padding: 10px;
 	border: 6px solid black;
 	border-bottom-color: transparent;
