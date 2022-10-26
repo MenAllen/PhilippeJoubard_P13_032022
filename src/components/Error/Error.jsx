@@ -9,6 +9,7 @@ function Error() {
 		justify-content: space-around;
 		font-size: 3rem;
 		font-weight: 500;
+		min-height: 80vh;
 	`;
 
 	return (

@@ -1,21 +1,33 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import "./Modal.css";
+import React, { useState } from "react"
+import Modal from "react-modal"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { userLogout, userResetRememberMe } from "../../features/user/userSlice"
+import "./Modal.css"
 
-import Modal from "react-modal";
-
-Modal.setAppElement("#root");
+Modal.setAppElement("#root")
 
 export default function ErrorModal() {
-	const [isOpen, setIsOpen] = useState(true);
-	const { loading, error } = useSelector((state) => state.user);
+	const dispatch = useDispatch()
+	const [isOpen, setIsOpen] = useState(true)
+	const { error } = useSelector((state) => state.user)
+	const navigate = useNavigate()
 
+	// Close Modal and disconnect if unauthrized error status
 	function toggleModal() {
+		console.log("toggleModal ", isOpen)
 		setIsOpen(!isOpen);
+		if ((error.status === 401)  || (error === "NetworkError when attempting to fetch resource.")) {
+			localStorage.removeItem("userToken"); // deletes token from storage
+			dispatch(userResetRememberMe())
+			dispatch(userLogout());
+			navigate("/");
+		}
 	}
 
 	function printError() {
-		console.log("printError :", error);
+		console.log("printError :", error, isOpen);
 		if (typeof error === "string") {
 			return <div className="modalMessage">{error}</div>;
 		}

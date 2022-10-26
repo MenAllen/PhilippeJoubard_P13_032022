@@ -10,9 +10,7 @@ const rotate = keyframes`
 `;
 
 export const LoaderWrapper = styled.div`
-color: red;
-background-color: white;
-
+	background-color: transparent;
 	display: flex;
 	justify-content: center;
 	padding-bottom: 10px;
@@ -24,8 +22,7 @@ background-color: white;
 `;
 
 export const Loader = styled.div`
-	color: red;
-	background-color: white;
+	background-color: transparent;
 	padding: 10px;
 	border: 6px solid black;
 	border-bottom-color: transparent;

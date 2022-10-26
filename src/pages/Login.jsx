@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/user/userActions";
 import { useNavigate } from "react-router-dom";
-import { userClear } from "../features/user/userSlice";
+import { userClear, userSetRememberMe } from "../features/user/userSlice";
 import Modal from "../components/Modal/Modal";
 import { LoaderWrapper, Loader } from "../utils/Atoms";
 import "../style/main.css";
 
 function Login() {
-	const { loading, success, error } = useSelector((state) => state.user);
+	const { loading, success, rememberMe, error } = useSelector((state) => state.user);
 	console.log("login useSelector: ", loading, success, error);
 	const dispatch = useDispatch();
 	const { register, handleSubmit } = useForm();
@@ -18,17 +18,21 @@ function Login() {
 	useEffect(() => {
 		// redirect authenticated user to profile screen
 		console.log("Login useEffect :", loading, success);
-		if (success) {
-      console.log("Login useEffect Navigate");
-      dispatch(userClear())
-      navigate("/profile");}
+		if (localStorage.getItem("userToken")) {
+			sessionStorage.setItem("userToken", localStorage.getItem("userToken"));
+      navigate("/profile");
+		} else if (success) {
+			console.log("Login useEffect Navigate");
+			dispatch(userClear());
+			navigate("/profile");
+		}
 	}, [success]);
 
 	const submitForm = (data) => {
-    if (data.checkbox) {
-					document.cookie=`email=${data.email};  SameSite=Strict`;
-				}
-		console.log("submitForm: ", data); 
+		console.log("submitForm: ", data);
+		if (data.checkbox) {
+			dispatch(userSetRememberMe());
+		}
 		dispatch(userLogin(data));
 	};
 
@@ -38,8 +42,12 @@ function Login() {
 				<i className="fa fa-user-circle sign-in-icon" />
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit(submitForm)}>
-          {loading && <LoaderWrapper><Loader /></LoaderWrapper>}
-          {error && <Modal />}
+					{loading && (
+						<LoaderWrapper>
+							<Loader />
+						</LoaderWrapper>
+					)}
+					{error && <Modal />}
 					<div className="input-wrapper">
 						<label htmlFor="email">Username</label>
 						<input type="email" {...register("email")} required />

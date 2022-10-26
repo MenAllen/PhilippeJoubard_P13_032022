@@ -17,10 +17,6 @@ export const userLogin = createAsyncThunk(
 			.then((data) => data.json())
 			.then((mainData) => {
 				console.log(mainData);
-				if (mainData.status === 200) {
-					sessionStorage.setItem("userToken", mainData.body.token);
-          sessionStorage.setItem("connected", true);
-				}
 				return mainData;
 			})
 			.catch((err) => {
@@ -29,7 +25,7 @@ export const userLogin = createAsyncThunk(
 	}
 );
 
-export const userProfile = createAsyncThunk("user/userProfile", async ({ rejectWithValue }) => {
+export const userProfile = createAsyncThunk("user/userProfile", async ( { data }, { rejectWithValue }) => {
 	console.log("userProfile");
 	return fetch(`${server}/api/v1/user/profile`, {
 		method: "POST",

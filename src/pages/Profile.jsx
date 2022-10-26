@@ -10,8 +10,8 @@ import "../style/main.css"
 function Profile() {
 	const dispatch = useDispatch()
 	const { register, reset, handleSubmit } = useForm()
-	const { action, loading, success, userInfo, error } = useSelector((state) => state.user)
-	console.log("profile useSelector: ", loading, success, userInfo, error)
+	const { firstName, lastName, loading, success, error } = useSelector((state) => state.user)
+	console.log("profile useSelector: ", loading, success, error)
 
 	const editRef = useRef()
 	const formRef = useRef()
@@ -49,32 +49,33 @@ function Profile() {
 
 	return (
 		<main className="main bg-dark">
-			<div className="header">
-				<h1>
-					Welcome back
-					<br />
-					{userInfo.firstName} !
-				</h1>
-				<button className="edit-button" onClick={toggleEditName} ref={editRef}>
-					Edit Name
-				</button>
-				<div className="update-name-container nodisplay" ref={formRef}>
-					<form onSubmit={handleSubmit(submitForm)}>
 						{loading && (
 							<LoaderWrapper>
 								<Loader />
 							</LoaderWrapper>
 						)}
 						{error && <Modal />}
+				<div className="header">
+				<h1>
+					Welcome back
+					<br />
+					{firstName} {lastName} !
+				</h1>
+				<button className="edit-button" onClick={toggleEditName} ref={editRef}>
+					Edit Name
+				</button>
+				<div className="update-name-container nodisplay" ref={formRef}>
+					<form onSubmit={handleSubmit(submitForm)}>
+						{error && <Modal />}
 						<input
 							className="input-name"
-							placeholder={userInfo.firstName}
+							placeholder={firstName}
 							{...register("firstName")}
 							required
 						/>
 						<input
 							className="input-name"
-							placeholder={userInfo.lastName}
+							placeholder={lastName}
 							{...register("lastName")}
 							required
 						/>
