@@ -47,6 +47,9 @@ const userSlice = createSlice({
 		userResetRememberMe: (state) => {
 			state.rememberMe = false;
 		},
+		userSetError: (state) => {
+			state.error = "Error ! Requested page doesn't exist"
+		},
 	},
 	extraReducers: {
 		// login user
@@ -140,5 +143,5 @@ const userSlice = createSlice({
 	},
 });
 
-export const { userLogout, userClear, userSetRememberMe, userResetRememberMe } = userSlice.actions;
+export const { userLogout, userClear, userSetRememberMe, userResetRememberMe, userSetError } = userSlice.actions;
 export default userSlice.reducer;

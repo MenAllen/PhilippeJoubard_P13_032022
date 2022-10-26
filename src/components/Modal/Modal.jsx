@@ -14,11 +14,11 @@ export default function ErrorModal() {
 	const { error } = useSelector((state) => state.user)
 	const navigate = useNavigate()
 
-	// Close Modal and disconnect if unauthrized error status
+	// Close Modal and disconnect if unauthorized error status or server not reachable
 	function toggleModal() {
 		console.log("toggleModal ", isOpen)
 		setIsOpen(!isOpen);
-		if ((error.status === 401)  || (error === "NetworkError when attempting to fetch resource.")) {
+		if ((error.status === 401)  || (error === "NetworkError when attempting to fetch resource.") || (error === "Error ! Requested page doesn't exist")) {
 			localStorage.removeItem("userToken"); // deletes token from storage
 			dispatch(userResetRememberMe())
 			dispatch(userLogout());

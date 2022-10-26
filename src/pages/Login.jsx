@@ -9,7 +9,7 @@ import { LoaderWrapper, Loader } from "../utils/Atoms";
 import "../style/main.css";
 
 function Login() {
-	const { loading, success, rememberMe, error } = useSelector((state) => state.user);
+	const { loading, success, error } = useSelector((state) => state.user);
 	console.log("login useSelector: ", loading, success, error);
 	const dispatch = useDispatch();
 	const { register, handleSubmit } = useForm();

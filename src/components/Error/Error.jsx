@@ -1,28 +1,28 @@
-import React from "react"
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react"
 import styled from "styled-components"
+import Modal from "../Modal/Modal"
+import { useDispatch } from "react-redux"
+import { userSetError } from "../../features/user/userSlice";
+
+const ErrorPageContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	font-size: 3rem;
+	font-weight: 500;
+	min-height: 80vh;
+`;
 
 function Error() {
-	const ErrorPageContainer = styled.div`
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		font-size: 3rem;
-		font-weight: 500;
-		min-height: 80vh;
-	`;
+	const dispatch = useDispatch()
 
-	return (
-		<ErrorPageContainer>
-			<h2>Error !</h2>
-			<p>
-				Requested page doesn't exist
-			</p>
-			<Link to="/" style={{ color: "#ff6060", fontSize: "2rem" }}>
-				<h3>Back to Home page</h3>
-			</Link>
-		</ErrorPageContainer>
-	);
+	// Launch Action: set the error to be displayed in modal
+	useEffect(() => {
+		console.log("Error useEffect ")
+		dispatch(userSetError())
+	}, [])
+
+	return <ErrorPageContainer className="ErrorPageContainer">{<Modal />}</ErrorPageContainer>
 }
 
-export default Error;
+export default Error
