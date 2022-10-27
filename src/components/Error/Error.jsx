@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import Modal from "../Modal/Modal"
+import ErrorModal from "../Modal/Modal"
 import { useDispatch } from "react-redux"
-import { userSetError } from "../../features/user/userSlice";
+import { userSetError } from "../../features/user/userSlice"
 
 const ErrorPageContainer = styled.div`
 	display: flex;
@@ -22,7 +22,7 @@ function Error() {
 		dispatch(userSetError())
 	}, [])
 
-	return <ErrorPageContainer className="ErrorPageContainer">{<Modal />}</ErrorPageContainer>
+	return <ErrorPageContainer className="ErrorPageContainer">{<ErrorModal />}</ErrorPageContainer>
 }
 
 export default Error

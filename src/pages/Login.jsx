@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/user/userActions";
 import { useNavigate } from "react-router-dom";
 import { userClear, userSetRememberMe } from "../features/user/userSlice";
-import Modal from "../components/Modal/Modal";
+import ErrorModal from "../components/Modal/Modal";
 import { LoaderWrapper, Loader } from "../utils/Atoms";
 import "../style/main.css";
 
@@ -47,7 +47,7 @@ function Login() {
 							<Loader />
 						</LoaderWrapper>
 					)}
-					{error && <Modal />}
+					{error && <ErrorModal />}
 					<div className="input-wrapper">
 						<label htmlFor="email">Username</label>
 						<input type="email" {...register("email")} required />

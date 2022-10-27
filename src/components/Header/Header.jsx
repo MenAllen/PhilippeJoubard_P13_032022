@@ -1,18 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { userLogout } from "../../features/user/userSlice";
-import { useDispatch } from "react-redux";
-import logo from "../../assets/argentBankLogo.png";
-import "../../style/main.css";
+import React from "react"
+import { useSelector } from "react-redux"
+import { NavLink } from "react-router-dom"
+import { userLogout } from "../../features/user/userSlice"
+import { useDispatch } from "react-redux"
+import logo from "../../assets/argentBankLogo.png"
+import "../../style/main.css"
 
 function Header() {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
 	// retrieve store data to know about user connexion
-	const { firstName } = useSelector((state) => state.user);
+	const { firstName } = useSelector((state) => state.user)
 	const connected = sessionStorage.getItem('connected')
-	console.log("Header: ", firstName, connected);
+	console.log("Header: ", firstName, connected)
 
 	function Signout() {
 		dispatch(userLogout())
@@ -30,14 +30,14 @@ function Header() {
 						<i className="fa fa-sign-out"/> Sign Out
 					</NavLink>
 				</div>
-			);
+			)
 		return (
 			<div>
 				<NavLink to="/login" className="main-nav-item">
 					<i className="fa fa-user-circle"/> Sign In
 				</NavLink>
 			</div>
-		);
+		)
 	}
 
 	return (
@@ -48,7 +48,7 @@ function Header() {
 			</NavLink>
 			{headerActions()}
 		</nav>
-	);
+	)
 }
 
-export default Header;
+export default Header
