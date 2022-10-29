@@ -6,6 +6,12 @@ import { useDispatch } from "react-redux"
 import logo from "../../assets/argentBankLogo.png"
 import "../../style/main.css"
 
+/**
+ *  Header is a React component in charge of displaying header part of all pages
+ *  depending on the connected state, it will display specific navigation menu
+ * 
+ *  @returns a nav with navigation menu
+ */
 function Header() {
 	const dispatch = useDispatch()
 

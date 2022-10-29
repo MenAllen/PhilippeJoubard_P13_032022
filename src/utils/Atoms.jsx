@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components"
 
 const rotate = keyframes`
   from {
@@ -7,7 +7,7 @@ const rotate = keyframes`
   to {
     transform: rotate(360deg);
   }
-`;
+`
 
 export const LoaderWrapper = styled.div`
 	background-color: transparent;
@@ -19,7 +19,7 @@ export const LoaderWrapper = styled.div`
 	top: 0;
 	right: 50%;
 	z-index: 10;
-`;
+`
 
 export const Loader = styled.div`
 	background-color: transparent;
@@ -30,4 +30,4 @@ export const Loader = styled.div`
 	animation: ${rotate} 1s infinite linear;
 	height: 0;
 	width: 0;
-`;
+`

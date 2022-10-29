@@ -13,6 +13,11 @@ const ErrorPageContainer = styled.div`
 	min-height: 80vh;
 `;
 
+/**
+ *  Error is a React component in charge of displaying error message through modal
+ *
+ *  @returns a container modal with error message
+ */
 function Error() {
 	const dispatch = useDispatch()
 

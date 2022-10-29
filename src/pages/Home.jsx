@@ -1,9 +1,14 @@
-import React from "react";
+import React from "react"
 import iconChat from "../assets/icon-chat.png"
 import iconMoney from "../assets/icon-money.png"
 import iconSecurity from "../assets/icon-security.png"
 import "../style/main.css"
 
+/**
+ * Home is a function that returns a main Html that contains a Welcome page with ARGENT Bank information and capabilities
+ * 
+ * @returns A React Fragment. Welcome page
+ */
 function Home() {
 
 	return (
@@ -39,7 +44,7 @@ function Home() {
 				</div>
 			</section>
 		</main>
-	);
+	)
 }
 
-export default Home;
+export default Home

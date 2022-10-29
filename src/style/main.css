@@ -29,6 +29,26 @@ body {
   background-color: #12002b;
 }
 
+.bg-dark-normal {
+  background-color: #12002b;
+}
+
+.bg-dark-edit {
+  background-color: #dfe7ec;
+}
+
+.welcome-normal {
+  color: white;
+}
+
+.welcome-edit {
+  color: black;
+}
+
+.name-edit {
+  display: none;
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -234,7 +254,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
+  border: 2px solid #b9c4cf;
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
@@ -267,22 +287,33 @@ body {
   flex: 1;
 }
 
-.edit-button, .save-button, .cancel-button {
+.edit-button {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
   font-weight: bold;
   padding: 10px;
   margin: 5px;
-/*  width: 87px; */
+  cursor: pointer;
+}
+
+.save-button, .cancel-button {
+  border-color: #6256E3;
+  color: #6256E3;
+  font-weight: bold;
+  border-radius: 4px;
+  min-width: 100px;
+  padding: 10px;
+  margin: 5px;
   cursor: pointer;
 }
 
 .input-name {
-  border-color: #00bc77;
+  border: 2px solid #b9c4cf;
   background-color: #fbfbfb;
   color: #0b0b0b;
   font-weight: bold;
+  border-radius: 4px;
   padding: 10px;
   margin: 5px;
   width: 140px;
@@ -314,6 +345,16 @@ body {
   color: #fff;
 }
 
+.transaction-button-normal {
+  border-color: #00bc77;
+  background-color: #00bc77;
+}
+
+.transaction-button-edit {
+  border-color: #6256E3;
+  background-color: #6256E3;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
@@ -326,22 +367,4 @@ body {
   .transaction-button {
     width: 200px;
   }
-}
-
-@media (max-width: 720px) {
-  .update-name-container {
-  flex-direction: column;
-  }
-
-  .cancel-button {
-    align-self: center;
-  }
-
-  .save-button {
-    align-self: center;
-  }
-
-  .input-name {
-    width: 20%;
-  } 
 }

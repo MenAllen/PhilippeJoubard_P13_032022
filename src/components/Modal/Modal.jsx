@@ -13,11 +13,17 @@ const disconnectMsgs = [
   "Error ! Requested page doesn't exist"
 ]
 
+/**
+ *  ErrorModal is a React component in charge of displaying error information in modal 
+ *  when a http request fails or the url page requested doesn't exist
+ *
+ *  @returns a div html with error information
+ */
 export default function ErrorModal() {
 	const [isOpen, setIsOpen] = useState(true)
 	const { error } = useSelector((state) => state.user)
 	const dispatch = useDispatch()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
 	// Close Modal and disconnect if unauthorized error status or server not reachable
 	function toggleModal() {
@@ -32,6 +38,7 @@ export default function ErrorModal() {
 		}
 	}
 
+	// Error information can include or not status code
 	function printError() {
 		console.log("printError :", error, isOpen)
 		if (typeof error === "string") {
