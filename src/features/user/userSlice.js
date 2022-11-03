@@ -38,6 +38,7 @@ const userSlice = createSlice({
 		userLogout: (state) => {
 			sessionStorage.removeItem("userToken"); // deletes token from storage
 			sessionStorage.removeItem("connected"); // deletes boolean from storage
+			localStorage.removeItem("userToken"); // deletes token from storage
 			state.loading = false
 			state.error = null
 			state.success = false

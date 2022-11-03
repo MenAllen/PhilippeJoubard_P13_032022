@@ -1,13 +1,13 @@
 # Code base for Project P13 - React Redux
-Projet "Utilisez une API pour un compte utilisateur bancaire avec React"
-Le projet concerne une nouvelle banque qui démarre, Argent Bank, qui a besoin d'aide pour mettre en place son application. Nous avons obtenu un contrat en deux parties qui se décompose en plusieurs phases :
-Phase 1 : Authentification des utilisateurs - Création d'une application web permettant aux clients de se connecter et de gérer leurs comptes et leur profil.
-Phase 2 : Transactions - Il s’agirait de spécifier les endpoints d’API nécessaires pour une éventuelle deuxième mission une fois que nous aurons terminé la première.
-À la fin du projet, tu présenteras les deux livrables à Avery Moreau, qui gère l’équipe technique d’Argent Bank.
+Project Title: "Utilisez une API pour un compte utilisateur bancaire avec React"
+Description: a new bank, Argent Bank, needs help to setup a new app. The contract is organized in two steps:
+Step 1 : User Authentication - Creating web app allowing customers to connect & manage their profile and accounts.
+Step 2 : Transactions - Specify endpoints API to be submitted to customers for transactions management once step & is done
 
 ## Inputs
  - Backend API & Documentation
  - Frontend static HTML & CSS
+ - Wireframes edit-user-name et transactions
 
 ## Software tools used
  - Visual Studio Code V1.71
