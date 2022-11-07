@@ -1,15 +1,40 @@
-import React from "react"
-import iconChat from "../assets/icon-chat.png"
-import iconMoney from "../assets/icon-money.png"
-import iconSecurity from "../assets/icon-security.png"
-import "../style/main.css"
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import iconChat from "../assets/icon-chat.png";
+import iconMoney from "../assets/icon-money.png";
+import iconSecurity from "../assets/icon-security.png";
+import "../style/main.css";
 
 /**
  * Home is a function that returns a main Html that contains a Welcome page with ARGENT Bank information and capabilities
- * 
+ *
  * @returns A React Fragment. Welcome page
  */
 function Home() {
+	const navigate = useNavigate();
+	const { isLogged } = useSelector((state) => state.user);
+
+	// redirect authenticated user to profile screen if not already connected
+	useEffect(() => {
+		// if userToken in localStorgae only, then reload state is needed
+		if (localStorage.getItem("userToken") && !sessionStorage.getItem("userToken")) {
+			sessionStorage.setItem("userToken", localStorage.getItem("userToken"));
+			sessionStorage.setItem("connected", true);
+			navigate("/profile");
+			return;
+		}
+		// if state data present, then no reload needed
+		if (isLogged) {
+			navigate("/");
+			return;
+		}
+		// else if useToken in storage, then reload state is needed
+		if (sessionStorage.getItem("userToken")) {
+			sessionStorage.setItem("connected", true);
+			navigate("/profile");
+		}
+	}, []);
 
 	return (
 		<main>
@@ -44,7 +69,7 @@ function Home() {
 				</div>
 			</section>
 		</main>
-	)
+	);
 }
 
-export default Home
+export default Home;

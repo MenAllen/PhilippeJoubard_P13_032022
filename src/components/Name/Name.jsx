@@ -1,58 +1,71 @@
-import React, { useRef, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useForm } from "react-hook-form"
-import { userName, userProfile } from "../../features/user/userActions"
-import { userClear } from "../../features/user/userSlice"
-import { LoaderWrapper, Loader } from "../../utils/Atoms"
-import ErrorModal from "../Modal/Modal"
-import "../../style/main.css"
+import React, { useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { userName, userProfile } from "../../features/user/userActions";
+import { userClear } from "../../features/user/userSlice";
+import { LoaderWrapper, Loader } from "../../utils/Atoms";
+import ErrorModal from "../Modal/Modal";
+import "../../style/main.css";
 
 /**
  *  Name is a React component in charge of displaying name modification menu
- *  and sending put request to server 
- *  
+ *  and sending http put request to server
+ *
  *  @returns a div html with react-hook-form useForm
  */
 function Name({ mode, setMode }) {
-	const dispatch = useDispatch()
-	const { register, reset, handleSubmit } = useForm()
-	const { firstName, lastName, loading, success, error } = useSelector((state) => state.user)
-	console.log("profile useSelector: ", loading, success, error)
+	const dispatch = useDispatch();
+	const { register, reset, handleSubmit } = useForm();
+	const { firstName, lastName, loading, error, isLogged } = useSelector((state) => state.user);
 
-	const editRef = useRef()
-	const formRef = useRef()
-	const dataProfile = {}
+	const editRef = useRef();
+	const formRef = useRef();
+	const dataProfile = {};
 
-	// Launch Action: Profile request to server on first render and hide name
+	// Launch Action: Profile request to server on first render
 	useEffect(() => {
-		console.log("Profile useEffect ", loading, success)
-		dispatch(userProfile(dataProfile))
-	}, [])
+		if (!isLogged) {
+			dispatch(userProfile(dataProfile));
+		}
+	}, []);
+
+	// Update input default values to avoid re-typing
+	useEffect(() => {
+		const defaultValues = {};
+		defaultValues.firstName = firstName;
+		defaultValues.lastName = lastName;
+		reset({ ...defaultValues });
+	}, [loading]);
+
+	// Check if name different not to send request for no use
+	const differentName = (name) => {
+		if (name.firstName === firstName && name.lastName === lastName) {
+			return false;
+		}
+		return true;
+	};
 
 	// Launch Action : Clear user state then Dispatch Name update request
 	const submitForm = (dataName) => {
-		console.log("submitForm: ", dataName, loading, success)
-		dispatch(userClear())
-		dispatch(userName(dataName))
-		toggleEditName()
+		if (differentName(dataName)) {
+			dispatch(userClear());
+			dispatch(userName(dataName));
+		}
+		toggleEditName();
 	};
 
 	// Edit Name button
 	function toggleEditName() {
-		console.log("editName: ", loading)
 		if (!loading) {
-			// Reset input values first
-			reset({ firstName: "", lastName: "" })
-
 			if (editRef.current.classList.contains("nodisplay")) {
-				setMode("normal")
-				editRef.current.classList.remove("nodisplay")
-				formRef.current.classList.add("nodisplay")
+				setMode("normal");
+				editRef.current.classList.remove("nodisplay");
+				formRef.current.classList.add("nodisplay");
 				return;
 			}
-			setMode("edit")
-			editRef.current.classList.add("nodisplay")
-			formRef.current.classList.remove("nodisplay")
+			setMode("edit");
+			editRef.current.classList.add("nodisplay");
+			formRef.current.classList.remove("nodisplay");
 		}
 	}
 
@@ -91,14 +104,14 @@ function Name({ mode, setMode }) {
 						<button type="submit" className="save-button">
 							Save
 						</button>
-						<button className="cancel-button" onClick={toggleEditName}>
+						<button type="button" className="cancel-button" onClick={toggleEditName}>
 							Cancel
 						</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default Name
+export default Name;

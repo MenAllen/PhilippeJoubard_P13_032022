@@ -1,13 +1,12 @@
-import React, { useEffect } from "react"
-import { useForm } from "react-hook-form"
-import { useDispatch, useSelector } from "react-redux"
-import { userLogin } from "../features/user/userActions"
-import { useNavigate } from "react-router-dom"
-import { userClear, userSetRememberMe } from "../features/user/userSlice"
-import ErrorModal from "../components/Modal/Modal"
-import { LoaderWrapper, Loader } from "../utils/Atoms"
-import "../style/main.css"
-
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../features/user/userActions";
+import { useNavigate } from "react-router-dom";
+import { userClear, userSetRememberMe } from "../features/user/userSlice";
+import ErrorModal from "../components/Modal/Modal";
+import { LoaderWrapper, Loader } from "../utils/Atoms";
+import "../style/main.css";
 
 /**
  * Login is a React component that is used to login a user.
@@ -15,32 +14,34 @@ import "../style/main.css"
  * @returns a react form (useForm) with input and buttons to initate a login request from a user to server
  */
 function Login() {
-	const { loading, success, error } = useSelector((state) => state.user)
-	console.log("login useSelector: ", loading, success, error)
-	const dispatch = useDispatch()
-	const { register, handleSubmit } = useForm()
-	const navigate = useNavigate()
+	const { loading, success, error } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	const { register, handleSubmit, reset } = useForm();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		// redirect authenticated user to profile screen
-		console.log("Login useEffect :", loading, success)
+
 		if (localStorage.getItem("userToken")) {
-			sessionStorage.setItem("userToken", localStorage.getItem("userToken"))
-      navigate("/profile")
+			sessionStorage.setItem("userToken", localStorage.getItem("userToken"));
+			sessionStorage.setItem("connected", true);
+			navigate("/profile");
+		} else if (sessionStorage.getItem("userToken")) {
+			sessionStorage.setItem("connected", true);
+			navigate("/profile");
 		} else if (success) {
-			console.log("Login useEffect Navigate")
-			dispatch(userClear())
-			navigate("/profile")
+			dispatch(userClear());
+			navigate("/profile");
 		}
-	}, [success])
+	}, [success]);
 
 	const submitForm = (data) => {
-		console.log("submitForm: ", data)
 		if (data.checkbox) {
-			dispatch(userSetRememberMe())
+			dispatch(userSetRememberMe());
 		}
-		dispatch(userLogin(data))
-	}
+		dispatch(userLogin(data));
+		reset();
+	};
 
 	return (
 		<main className="main bg-dark">
@@ -72,7 +73,7 @@ function Login() {
 				</form>
 			</section>
 		</main>
-	)
+	);
 }
 
-export default Login
+export default Login;

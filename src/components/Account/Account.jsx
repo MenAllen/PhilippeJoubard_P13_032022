@@ -9,8 +9,7 @@ import "../../style/main.css";
  
  *  @returns 3 html sections
  */
-function Account( { mode } ) {
-
+function Account({ mode }) {
 	return (
 		<>
 			<h2 className="sr-only">Accounts</h2>
@@ -21,7 +20,9 @@ function Account( { mode } ) {
 					<p className="account-amount-description">Available Balance</p>
 				</div>
 				<div className="account-content-wrapper cta">
-					<button className={`transaction-button transaction-button-${mode}`}>View transactions</button>
+					<button className={`transaction-button transaction-button-${mode}`}>
+						View transactions
+					</button>
 				</div>
 			</section>
 			<section className="account">
@@ -31,7 +32,9 @@ function Account( { mode } ) {
 					<p className="account-amount-description">Available Balance</p>
 				</div>
 				<div className="account-content-wrapper cta">
-					<button className={`transaction-button transaction-button-${mode}`}>View transactions</button>
+					<button className={`transaction-button transaction-button-${mode}`}>
+						View transactions
+					</button>
 				</div>
 			</section>
 			<section className="account">
@@ -41,7 +44,9 @@ function Account( { mode } ) {
 					<p className="account-amount-description">Current Balance</p>
 				</div>
 				<div className="account-content-wrapper cta">
-					<button className={`transaction-button transaction-button-${mode}`}>View transactions</button>
+					<button className={`transaction-button transaction-button-${mode}`}>
+						View transactions
+					</button>
 				</div>
 			</section>
 		</>

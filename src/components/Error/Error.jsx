@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
-import styled from "styled-components"
-import ErrorModal from "../Modal/Modal"
-import { useDispatch } from "react-redux"
-import { userSetError } from "../../features/user/userSlice"
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import ErrorModal from "../Modal/Modal";
+import { useDispatch } from "react-redux";
+import { userSetError } from "../../features/user/userSlice";
 
 const ErrorPageContainer = styled.div`
 	display: flex;
@@ -19,15 +19,14 @@ const ErrorPageContainer = styled.div`
  *  @returns a container modal with error message
  */
 function Error() {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	// Launch Action: set the error to be displayed in modal
 	useEffect(() => {
-		console.log("Error useEffect ")
-		dispatch(userSetError())
-	}, [])
+		dispatch(userSetError());
+	}, []);
 
-	return <ErrorPageContainer className="ErrorPageContainer">{<ErrorModal />}</ErrorPageContainer>
+	return <ErrorPageContainer className="ErrorPageContainer">{<ErrorModal />}</ErrorPageContainer>;
 }
 
-export default Error
+export default Error;
