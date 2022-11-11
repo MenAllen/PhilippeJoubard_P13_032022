@@ -112,7 +112,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions:
+  /user/{accountId}/transactions:
     get:
       security:
         - Bearer: []
@@ -140,13 +140,13 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}:
+  /user/{accountId}/transactions/{transactionId}:
     get:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Transactions API
+      summary: User Transaction Details API
       description: API for fetching specific user transaction on accountId
       parameters:
         - in: header
@@ -178,8 +178,8 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Transactions API
-      description: API for updating specific transaction category / notes
+      summary: User Transaction Informations (category & notes) update API
+      description: API for updating specific transaction category or notes
       parameters:
         - in: header
           type: string
@@ -211,14 +211,14 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}/notes:
+  /user/{accountId}/transactions/{transactionId}/notes:
     post:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Transactions API
-      description: API for updating single user transaction notes
+      summary: User Transaction Notes adding API
+      description: API for creating specific transaction notes
       parameters:
         - in: header
           type: string
@@ -243,7 +243,7 @@ paths:
             $ref: '#/definitions/TransactionUpdateNotes'
       responses:
         '200':
-          description: User transactions updated successully
+          description: User transaction updated successully
           schema:
             $ref: '#/definitions/TransactionDetailsResponse'
         '400':
@@ -255,8 +255,8 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Transactions API
-      description: API for updating single user transaction notes
+      summary: User Transaction Notes deleting API
+      description: API for deleting specific transaction notes
       parameters:
         - in: header
           type: string
@@ -273,15 +273,9 @@ paths:
           description: Transaction Id to be updated
           required: true
           type: string
-        - in: body
-          name: body
-          description: Update user transaction notes
-          required: true
-          schema:
-            $ref: '#/definitions/TransactionUpdateNotes'
       responses:
         '200':
-          description: User transactions updated successully
+          description: User transaction updated successully
           schema:
             $ref: '#/definitions/TransactionDetailsResponse'
         '400':
@@ -348,62 +342,97 @@ definitions:
     properties:
       status:
         type: integer
+        description: request response status
+        example: 200
       message:
         type: string
+        description: request response message
+        example: "Successfully updated user profile data"
       body:
         type: array
         items:
           type: object
           properties:
-            accountId:
-              type: string
             transactionId:
               type: string
+              description: transaction id
+              example: "634d71c7ddabdd31149c19ac"
             amount:
-              type: integer
+              type: number
+              description: transaction amount
+              example: 145.53
             date:
               type: string
+              description: transaction date
+              example: "2022-10-17T15:16:23.434Z"
             description:
               type: string
+              description: transaction description
+              example: "Golden Sun Bakery"
             balance:
-              type: integer
+              type: number
+              description: account balance
+              example: 2082.79
   TransactionDetailsResponse:
     type: object
     properties:
       status:
         type: integer
+        description: request response status
+        example: 200
       message:
         type: string
+        description: request response message
+        example: "Successfully updated user profile data"
       body:
         type: object
         properties:
-          accountId:
-            type: string
           transactionId:
             type: string
+            example: "634d71c7ddabdd31149c19ac"
           amount:
-            type: integer
+            type: number
+            description: transaction amount
+            example: 145.53
           date:
             type: string
+            description: transaction date
+            example: "2022-10-17T15:16:23.434Z"
           description:
             type: string
+            description: transaction description
+            example: "Golden Sun Bakery"
           balance:
-            type: integer
+            type: number
+            description: account balance
+            example: 2082.79
           transactiontype:
             type: string
+            description: account balance
+            example: "Electronic"
           category:
             type: string
+            description: transaction category
+            example: "food"
           notes:
             type: string
+            description: transaction notes
+            example: "eggs and cheese"
   TransactionUpdate:
     type: object
     properties:
       category:
         type: string
+        description: transaction category
+        example: "food"
       notes:
         type: string
+        description: transaction notes
+        example: "eggs and cheese"
   TransactionUpdateNotes:
     type: object
     properties:
       notes:
         type: string
+        description: transaction notes
+        example: "eggs and cheese"
