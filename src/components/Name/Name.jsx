@@ -24,8 +24,15 @@ function Name({ mode, setMode }) {
 
 	// Launch Action: Profile request to server on first render
 	useEffect(() => {
+		console.log('profileUseEffect: ', isLogged)
 		if (!isLogged) {
-			dispatch(userProfile(dataProfile));
+			if (sessionStorage.getItem("userToken")) {
+				dispatch(userProfile(dataProfile));	
+			} else if (localStorage.getItem("userToken")) {
+				sessionStorage.setItem("userToken", localStorage.getItem("userToken"));
+				sessionStorage.setItem("connected", true);
+				dispatch(userProfile(dataProfile));
+			}	
 		}
 	}, []);
 
