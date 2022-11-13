@@ -35,6 +35,17 @@ to install the backend
 to run the backend. The backend starts on port 3001
 ### `npm run populate-db`
 to populate the database with two users.
+Once you run the `populate-db` script, you should have two users in your database:
+### Tony Stark
+- First Name: `Tony`
+- Last Name: `Stark`
+- Email: `tony@stark.com`
+- Password: `password123`
+### Steve Rogers
+- First Name: `Steve`,
+- Last Name: `Rogers`,
+- Email: `steve@rogers.com`,
+- Password: `password456`
 
 ## Frontend
 clone this repo https://github.com/MenAllen/PhilippeJoubard_P13_032022.git

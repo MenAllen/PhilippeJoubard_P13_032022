@@ -243,7 +243,7 @@ paths:
             $ref: '#/definitions/TransactionUpdateNotes'
       responses:
         '200':
-          description: User transaction updated successully
+          description: User transaction notes updated successully
           schema:
             $ref: '#/definitions/TransactionDetailsResponse'
         '400':
@@ -275,9 +275,9 @@ paths:
           type: string
       responses:
         '200':
-          description: User transaction updated successully
+          description: User transaction notes deleted successully
           schema:
-            $ref: '#/definitions/TransactionDetailsResponse'
+            $ref: '#/definitions/TransactionDetailsResponseDelete'
         '400':
           description: Invalid Fields
         '500':
@@ -347,7 +347,7 @@ definitions:
       message:
         type: string
         description: request response message
-        example: "Successfully updated user profile data"
+        example: "Request Processed Successfully"
       body:
         type: array
         items:
@@ -383,7 +383,7 @@ definitions:
       message:
         type: string
         description: request response message
-        example: "Successfully updated user profile data"
+        example: "Request Processed Successfully"
       body:
         type: object
         properties:
@@ -418,6 +418,51 @@ definitions:
             type: string
             description: transaction notes
             example: "eggs and cheese"
+  TransactionDetailsResponseDelete:
+    type: object
+    properties:
+      status:
+        type: integer
+        description: request response status
+        example: 200
+      message:
+        type: string
+        description: request response message
+        example: "Request Processed Successfully"
+      body:
+        type: object
+        properties:
+          transactionId:
+            type: string
+            example: "634d71c7ddabdd31149c19ac"
+          amount:
+            type: number
+            description: transaction amount
+            example: 145.53
+          date:
+            type: string
+            description: transaction date
+            example: "2022-10-17T15:16:23.434Z"
+          description:
+            type: string
+            description: transaction description
+            example: "Golden Sun Bakery"
+          balance:
+            type: number
+            description: account balance
+            example: 2082.79
+          transactiontype:
+            type: string
+            description: account balance
+            example: "Electronic"
+          category:
+            type: string
+            description: transaction category
+            example: "food"
+          notes:
+            type: string
+            description: transaction notes
+            example: ""
   TransactionUpdate:
     type: object
     properties:
