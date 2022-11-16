@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Name from "../components/Name/Name";
 import Account from "../components/Account/Account";
 import "../style/main.css";
@@ -8,6 +9,7 @@ import "../style/main.css";
  * @returns The Name and the Account components are being returned.
  */
 function Profile() {
+	const navigate = useNavigate();
 	// useState used to toggle between display and edit themes (color)
 	const [displayMode, setDisplayMode] = useState("normal");
 

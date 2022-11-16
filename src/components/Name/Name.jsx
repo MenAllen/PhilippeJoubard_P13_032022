@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { userName, userProfile } from "../../features/user/userActions";
 import { userClear } from "../../features/user/userSlice";
 import { LoaderWrapper, Loader } from "../../utils/Atoms";
@@ -17,6 +18,7 @@ function Name({ mode, setMode }) {
 	const dispatch = useDispatch();
 	const { register, reset, handleSubmit } = useForm();
 	const { firstName, lastName, loading, error, isLogged } = useSelector((state) => state.user);
+	const navigate = useNavigate();
 
 	const editRef = useRef();
 	const formRef = useRef();
@@ -24,6 +26,7 @@ function Name({ mode, setMode }) {
 
 	// Launch Action: Profile request to server on first render
 	useEffect(() => {
+		console.log("useEffect Profile", isLogged)
 		if (!isLogged) {
 			if (sessionStorage.getItem("userToken")) {
 				dispatch(userProfile(dataProfile));	
@@ -31,7 +34,9 @@ function Name({ mode, setMode }) {
 				sessionStorage.setItem("userToken", localStorage.getItem("userToken"));
 				sessionStorage.setItem("connected", true);
 				dispatch(userProfile(dataProfile));
-			}	
+			}	else {
+				navigate("/login")
+			}
 		}
 	}, []);
 
