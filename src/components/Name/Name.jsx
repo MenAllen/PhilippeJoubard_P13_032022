@@ -26,7 +26,6 @@ function Name({ mode, setMode }) {
 
 	// Launch Action: Profile request to server on first render
 	useEffect(() => {
-		console.log("useEffect Profile", isLogged)
 		if (!isLogged) {
 			if (sessionStorage.getItem("userToken")) {
 				dispatch(userProfile(dataProfile));	
